@@ -14,8 +14,9 @@ BOMB_SIZE_RANDOMIZE = (1.2,1.5)
 FRUIT_SPAWN_TIME = 1
 FRUIT_MOVE_SPEED = {"min": 1, "max": 6}
 ANIMATION_SPEED = 0.1
+GAME_DURATION = 90
 DRAW_HITBOX = False
-MUSIC_VOLUME = 0.5 
+MUSIC_VOLUME = 0.5
 SOUNDS_VOLUME = 0.2
 COLORS = {"title": (255, 255, 255), "score": (255, 255, 255), "timer": (255, 255, 255),
             "buttons": {"default": (56, 67, 209), "second":  (87, 99, 255),

@@ -24,10 +24,10 @@ class Hand:
     def on_rm(self, rms):
         return [rm for rm in rms if self.rect.colliderect(rm.rect)]
     def kill_rms(self, rms, score, sounds):
-        bombSounds = [ 'assets/sounds/LoseLife.wav', 'assets/sounds/BombThrow.wav']
+        bombSounds ='assets/sounds/BombExplode.wav'
         if self.left_click:
             for rm in self.on_rm(rms):
-                bombSound = random.choice(bombSounds)
+                bombSound = bombSounds
                 rm_score = rm.kill(rms)
                 score += rm_score
                 if rm_score < 0:
