@@ -23,17 +23,17 @@ class Hand:
             self.draw_hitbox(surface)
     def on_rm(self, rms):
         return [rm for rm in rms if self.rect.colliderect(rm.rect)]
+
     def kill_rms(self, rms, score, sounds):
-        bombSounds ='assets/sounds/BombExplode.wav'
-        if self.left_click:
-            for rm in self.on_rm(rms):
-                bombSound = bombSounds
-                rm_score = rm.kill(rms)
-                score += rm_score
-                if rm_score < 0:
-                    pygame.mixer.Sound(bombSound).play().set_volume(SOUNDS_VOLUME)
-                else:
-                    pygame.mixer.Sound('assets/sounds/FruitSlice.wav').play().set_volume(SOUNDS_VOLUME)
-        else:
-            self.left_click = False
+        bombSound = 'assets/sounds/BombExplode.wav'
+        for rm in self.on_rm(rms):
+            rm_score = rm.kill(rms)
+            score += rm_score
+            if rm_score < 0:
+                pygame.mixer.Sound(bombSound).play().set_volume(SOUNDS_VOLUME)
+            else:
+                sound = pygame.mixer.Sound('assets/sounds/FruitSlice.wav')
+                print(sound)  # Xem đối tượng âm thanh được in ra là gì
+                sound.play().set_volume(SOUNDS_VOLUME)  # Thực hiện phát và đặt âm lượng
         return score
+

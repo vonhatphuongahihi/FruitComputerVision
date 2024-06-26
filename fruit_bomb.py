@@ -6,7 +6,7 @@ class FruitBase:
     def __init__(self, name, img_path, x_range, y_start, speed_x_range, speed_y_range):
         self.name = name
         self.image = pygame.image.load(img_path)
-        self.rect = self.image.get_rect()  # Thêm dòng này để tạo thuộc tính rect
+        self.rect = self.image.get_rect()
         self.x = random.randint(x_range[0], x_range[1])
         self.y = y_start
         self.speed_x = random.randint(speed_x_range[0], speed_x_range[1])
@@ -18,7 +18,7 @@ class FruitBase:
     def move(self):
         self.x += self.speed_x
         self.y += self.speed_y
-        self.rect.topleft = (self.x, self.y)  # Cập nhật vị trí của rect
+        self.rect.topleft = (self.x, self.y)
         self.speed_y += 1 * self.t
         self.t += 1
 
@@ -31,7 +31,7 @@ class FruitBase:
     def reset(self):
         self.x = random.randint(100, 1000)
         self.y = SCREEN_HEIGHT
-        self.rect.topleft = (self.x, self.y)  # Cập nhật vị trí của rect khi reset
+        self.rect.topleft = (self.x, self.y)
         self.speed_x = random.randint(-10, 10)
         self.speed_y = random.randint(-80, -60)
         self.throw = random.random() >= 0.75
@@ -63,4 +63,4 @@ class Bomb(FruitBase):
 
     def kill(self, rms):
         self.image = pygame.image.load("assets/images/explosion.png")
-        return -10
+        return -5

@@ -17,7 +17,7 @@ class Game:
         self.sounds["im_out"] = pygame.mixer.Sound("assets/sounds/Combo.wav")
         self.fruits = ['melon', 'orange', 'pomegranate', 'guava']
         self.bombs = ['bomb']
-        self.last_bomb_spawn_time = 0  # Thời gian lần cuối bomb xuất hiện
+        self.last_bomb_spawn_time = 0
         self.bomb_spawn_interval = 10
         self.reset()
     def reset(self):
@@ -35,7 +35,6 @@ class Game:
             self.rms_spawn_timer = t + FRUIT_SPAWN_TIME
             nb = (GAME_DURATION - self.time_left) / GAME_DURATION * 100 / 2
 
-            # Kiểm tra xem đã xuất hiện bom chưa
             has_bomb = any(isinstance(rm, Bomb) for rm in self.rms)
 
             if random.randint(0, 100) < nb and not has_bomb:
@@ -45,10 +44,8 @@ class Game:
                 fruit_name = random.choice(self.fruits)
                 self.rms.append(Fruit(fruit_name))
 
-            # Giới hạn số lượng self.rms tối đa là 6
             max_rms = 6
             if len(self.rms) > max_rms:
-                # Loại bỏ phần tử đầu tiên nếu vượt quá giới hạn
                 del self.rms[0]
     def load_camera(self):
         _, self.frame = self.cap.read()
@@ -63,11 +60,13 @@ class Game:
         self.hand.draw(self.surface)
         ui.draw_text(self.surface, f"Score : {self.score}", (5, 5), COLORS["score"], font=FONTS["medium"],
                     shadow=False)
-        timer_text_color = (160, 40, 0) if self.time_left < 5 else COLORS["timer"] # change the text color if less than 5 s left
-        ui.draw_text(self.surface, f"Time left : {self.time_left}", (SCREEN_WIDTH//2, 5),  timer_text_color, font=FONTS["medium"],
+        timer_text_color = (160, 40, 0) if self.time_left < 5 else COLORS["timer"]
+        ui.draw_text(self.surface, f"Time left : {self.time_left}", (SCREEN_WIDTH//2+50, 5),  timer_text_color, font=FONTS["medium"],
                     shadow=False)
     def game_time_update(self):
-        self.time_left = max(round(GAME_DURATION - (time.time() - self.game_start_time), 1), 0)
+        self.time_left = int(GAME_DURATION - (time.time() - self.game_start_time))
+        if self.time_left < 0:
+            self.time_left = 0
     def update(self):
         self.load_camera()
         self.set_hand_position()
